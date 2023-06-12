@@ -6,9 +6,7 @@ import "./index.scss";
 
 //Main component (will eventually use all the other)
 const MyFlixApplication = () => {
-  return (
-    <MainView />
-  );
+  return <MainView />
 };
 
 //Find the root of your app

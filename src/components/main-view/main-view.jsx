@@ -9,7 +9,7 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch("https://myflixappmatthew.herokuapp.com/")
+    fetch("mongodb+srv://mchays12:Branco12%40!@matthewcluster.fijdkxa.mongodb.net/")
       .then((reponse) => response.json())
       .then((data) => {
         const moviesFromApi = datadocs.map((doc) => {

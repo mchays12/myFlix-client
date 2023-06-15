@@ -27177,7 +27177,7 @@ const MainView = ()=>{
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
-        fetch("https://myflixappmatthew.herokuapp.com/").then((reponse)=>response.json()).then((data)=>{
+        fetch("mongodb+srv://mchays12:Branco12%40!@matthewcluster.fijdkxa.mongodb.net/").then((reponse)=>response.json()).then((data)=>{
             const moviesFromApi = datadocs.map((doc)=>{
                 return {
                     id: doc.key,
@@ -27573,7 +27573,7 @@ MovieCard.PropTypes = {
             description: (0, _propTypesDefault.default).string.isRequired
         })
     }).isRequired,
-    onMovieClick: PropTypesfunc.isRequired
+    onMovieClick: (0, _propTypesDefault.default).func.isRequired
 };
 var _c;
 $RefreshReg$(_c, "MovieCard");

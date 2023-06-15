@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { MovieView } from "../movie-view/movie-view";
 import { MovieCard } from "../movie-card/movie-card";
+import { LoginView } from "../login-view/login-view";
 
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
-    fetch("mongodb+srv://mchays12:Branco12%40!@matthewcluster.fijdkxa.mongodb.net/")
+    fetch("https://myflixappmatthew.herokuapp.com/")
       .then((reponse) => response.json())
       .then((data) => {
         const moviesFromApi = datadocs.map((doc) => {
@@ -24,6 +26,10 @@ export const MainView = () => {
         setMovies(moviesFromApi);
       });
   }, []);
+
+  if (!user) {
+    return <LoginView onLoggedIn={(user) => setUser(user)} />;
+  }
 
   if (selectedMovie) {
     return (
@@ -50,6 +56,8 @@ export const MainView = () => {
           />
         );
       })}
+      <button onClick={() => { setUser(null); }}>Logout</button>
     </div>
   );
+
 };

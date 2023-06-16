@@ -26,6 +26,22 @@ export const MainView = () => {
       .then((reponse) => response.json())
       .then((data) => {
         console.log(data);
+        const moviesFromApi = data.map((movie) => {
+          return {
+            id: movie.id,
+            Title: movie.Title,
+            Description: movie.Description,
+            Genre: {
+              Name: movie.Genre.Name,
+              Description: movie.Genre.Description
+            },
+            Director: {
+              Name: movie.Description.Name,
+            },
+            Featured: movie.Featured.toString()
+          }
+        });
+        setMovies(moviesFromApi);
       });
   }, [token]);
 

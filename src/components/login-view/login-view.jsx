@@ -14,7 +14,7 @@ export const LoginView = ({ onLoggedIn }) => {
       access: password
     };
 
-    fetch("somehow this is supposed to post login information", {
+    fetch("https://myflixappmatthew.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

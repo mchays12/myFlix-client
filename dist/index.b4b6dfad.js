@@ -27611,7 +27611,7 @@ const MovieCard = ({ movie , onMovieClick  })=>{
     }, undefined);
 };
 _c = MovieCard;
-//Define all the props constraints for the BookCard
+//Define all the props constraints for the MovieCard
 MovieCard.PropTypes = {
     movie: (0, _propTypesDefault.default).shape({
         title: (0, _propTypesDefault.default).string.isRequired,
@@ -28409,7 +28409,7 @@ const LoginView = ({ onLoggedIn  })=>{
             access: username,
             access: password
         };
-        fetch("somehow this is supposed to post login information", {
+        fetch("https://myflixappmatthew.herokuapp.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

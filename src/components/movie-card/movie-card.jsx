@@ -1,17 +1,19 @@
-//Import the PropTypes library
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-//BookCard function component
+//code for div that shows movie title and is clickable
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <div onClick={() => { onMovieClick(movie) }}
+    <div
+      onClick={() => {
+        onMovieClick(movie);
+      }}
     >
       {movie.Title}
     </div>
   );
 };
 
-//Define all the props constraints for the MovieCard
+//PropTypes conditions for return MovieCard statement in main-view.jsx
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired

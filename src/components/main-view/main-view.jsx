@@ -32,13 +32,8 @@ export const MainView = () => {
             _id: movie.id,
             Title: movie.Title,
             Description: movie.Description,
-            Genre: {
-              Name: movie.Genre.Name,
-              Description: movie.Genre.Description
-            },
-            Director: {
-              Name: movie.Description.Name,
-            },
+            Genre: movie.Genre.Name,
+            Director: movie.Director.Name,
             Featured: movie.Featured.toString()
           }
         });

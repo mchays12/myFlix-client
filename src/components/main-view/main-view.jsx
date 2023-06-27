@@ -26,7 +26,6 @@ export const MainView = () => {
       //})
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         const moviesFromApi = data.map((movie) => {
           return {
             _id: movie.id,
@@ -34,7 +33,8 @@ export const MainView = () => {
             Description: movie.Description,
             Genre: movie.Genre.Name,
             Director: movie.Director.Name,
-            Featured: movie.Featured.toString()
+            Featured: movie.Featured.toString(),
+            ImagePath: movie.ImagePath
           }
         });
         setMovies(moviesFromApi);

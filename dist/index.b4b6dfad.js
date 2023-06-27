@@ -27187,7 +27187,6 @@ const MainView = ()=>{
         //headers: { Authorization: `Bearer ${token}` }
         //})
         .then((response)=>response.json()).then((data)=>{
-            console.log(data);
             const moviesFromApi = data.map((movie)=>{
                 return {
                     _id: movie.id,
@@ -27195,7 +27194,8 @@ const MainView = ()=>{
                     Description: movie.Description,
                     Genre: movie.Genre.Name,
                     Director: movie.Director.Name,
-                    Featured: movie.Featured.toString()
+                    Featured: movie.Featured.toString(),
+                    ImagePath: movie.ImagePath
                 };
             });
             setMovies(moviesFromApi);
@@ -27443,6 +27443,7 @@ const MovieView = ({ movie , onBackClick  })=>{
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                    className: "w-100 h-100",
                     src: movie.ImagePath
                 }, void 0, false, {
                     fileName: "src/components/movie-view/movie-view.jsx",

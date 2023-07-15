@@ -49,7 +49,7 @@ export const MainView = () => {
   return (
     <Row>
       {!user ? (
-        <Col md={6}>
+        <Col className='mb-3' md={6}>
           <LoginView
             onLoggedIn={(user, token) => {
               setUser(user);
@@ -63,6 +63,7 @@ export const MainView = () => {
           movie={selectedMovie}
           onBackClick={() => setSelectedMovie(null)}
         />
+
       ) : movies.length === 0 ? (
         <div> This list needs some shmootsie </div>
       ) : (
@@ -72,7 +73,7 @@ export const MainView = () => {
               key={movie.Title}
               movie={movie}
               onMovieClick={(newSelectedMovie) => {
-                setSelectedMovie(newSelectedMovie);
+                setSelectedMovie(newSelectedMovie)
               }}
             />
           ))}

@@ -35,7 +35,7 @@ export const SignupView = () => {
   };
 
   return (
-    <Container>
+    <Container fluid>
       <Row>
         <Col>
           <CardGroup>

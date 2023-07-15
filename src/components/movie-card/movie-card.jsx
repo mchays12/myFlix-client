@@ -5,7 +5,7 @@ import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootst
 //code for div that shows movie title and is clickable
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <Col className='mb-5' key={movie.id} md={3}>
+    <Col className='mb-3' key={movie.id} md={3}>
       <Card className='h-100'>
         <Card.Img variant="top" src={movie.image} />
         <Card.Body>

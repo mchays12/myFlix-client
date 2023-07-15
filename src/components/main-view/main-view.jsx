@@ -3,7 +3,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-
+import { Row, Col, Button, Container, Card, CardGroup } from "react-bootstrap";
 
 export const MainView = () => {
 
@@ -46,56 +46,40 @@ export const MainView = () => {
       })
   }, [token]);
 
-
-  if (!user) {
-    return (
-      <>
-        <LoginView
-          onLoggedIn={(user, token) => {
-            setUser(user);
-            setToken(token);
-          }} />
-        or
-        <SignupView />
-      </>
-    );
-  }
-
-  if (selectedMovie) {
-    return (
-      <MovieView movie={selectedMovie} onBackClick={() =>
-        setSelectedMovie(null)}
-      />
-    );
-  };
-
-  if (movies.length === 0) {
-    return <div> This list needs some shmootsie </div>
-  }
-
   return (
-    <div>
-      <div>
-        {movies.map((movie) => (
-          <MovieCard
-            key={movie.Title}
-            movie={movie}
-            onMovieClick={(newSelectedMovie) => {
-              setSelectedMovie(newSelectedMovie);
-            }}
-          />
-        ))}
-      </div>
-      <button
-        onClick={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
-        }}
-      >
-        Logout
-      </button>
-    </div>
+    <Row>
+      {!user ? (
+        <Col md={6}>
+          <LoginView
+            onLoggedIn={(user, token) => {
+              setUser(user);
+              setToken(token);
+            }} />
+          or
+          <SignupView />
+        </Col>
+      ) : selectedMovie ? (
+        <MovieView
+          movie={selectedMovie}
+          onBackClick={() => setSelectedMovie(null)}
+        />
+      ) : movies.length === 0 ? (
+        <div> This list needs some shmootsie </div>
+      ) : (
+        <>
+          {movies.map((movie) => (
+            <MovieCard
+              key={movie.Title}
+              movie={movie}
+              onMovieClick={(newSelectedMovie) => {
+                setSelectedMovie(newSelectedMovie);
+              }}
+            />
+          ))}
+        </>
+      )}
+      <Button variant="primary" md="6" onClick={() => { setUser(null); }}>Logout</Button>
+    </Row>
   )
 }
 

@@ -1,12 +1,55 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import './movie-view.scss';
 import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootstrap";
 
-export const MovieView = ({ movies }) => {
+
+export const MovieView = ({ movies, user, setUser, token }) => {
   const { movieId } = useParams();
-  const movie = movies.find((b) => b.id === movieId);
+  //const [isFavorite, setIsFavorite] = useState(false);
+
+  /*useEffect(() => {
+    const isFavorited = user.FavoriteMovies.includes(movieId)
+    setIsFavorite(isFavorited)
+  }, []);
+
+  const removeFavorite = () => {
+    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/${movieId}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+    }).then((data) => {
+      setIsFavorite(false);
+      localStorage.setItem("user", JSON.stringify(data));
+    })
+  };
+
+  const addToFavorite = () => {
+    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/${movieId}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+    }).then((data) => {
+      setIsFavorite(true);
+      localStorage.setItem("user", JSON.stringify(data));
+    })
+  };*/
+
+  const movie = movies.find((m) => m.id === movieId);
 
 
   return (
@@ -18,7 +61,7 @@ export const MovieView = ({ movies }) => {
               <Card.Body>
                 <div>
                   <div>
-                    <img className="w-100 h-100" src={movie.ImagePath} />
+                    <img className="w-100 h-100" src={movie.image} />
                   </div>
                   <div>
                     <span> Title: </span>
@@ -36,6 +79,12 @@ export const MovieView = ({ movies }) => {
                     <span> Featured: </span>
                     <span> {movie.Featured} </span>
                   </div>
+                  {isFavorite ? (
+                    <Button onClick={removeFavorite}> Remove from Favorites </Button>
+                  ) : (
+                    <Button onClick={addToFavorite}> Add to Favorites </Button>
+                  )}
+
                   <Link to={`/`}>
                     <button
                       classname="back-button"
@@ -44,6 +93,7 @@ export const MovieView = ({ movies }) => {
                     </button>
                   </Link>
                 </div>
+
               </Card.Body>
             </Card>
           </CardGroup>

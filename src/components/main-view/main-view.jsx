@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { MovieView } from "../movie-view/movie-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { LoginView } from "../login-view/login-view";
@@ -49,6 +50,13 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null)
+        }}
+      />
       <Row>
         <Routes>
           <Route
@@ -115,47 +123,10 @@ export const MainView = () => {
               </>
             }
           />
+
         </Routes>
       </Row>
     </BrowserRouter>
-
-    /* {
-   !user ? (
-     <Col className='mb-3' md={6}>
-       <LoginView
-         onLoggedIn={(user, token) => {
-           setUser(user);
-           setToken(token);
-         }} />
-       or
-       <SignupView />
-     </Col>
-   ) : selectedMovie ? (
-     <MovieView
-       movie={selectedMovie}
-       onBackClick={() => setSelectedMovie(null)}
-     />
-
-   ) : movies.length === 0 ? (
-     <div> This list needs some shmootsie </div>
-   ) : (
-   <>
-
-     {movies.map((movie) => (
-       <MovieCard
-         key={movie.Title}
-         movie={movie}
-         onMovieClick={(newSelectedMovie) => {
-           setSelectedMovie(newSelectedMovie)
-         }}
-       />
-     ))}
-     <Button mt="auto" variant="primary" md="6" onClick={() => { setUser(null); }}>Logout</Button>
-   </>
- )
- }
-
-   </Row >*/
   )
 }
 

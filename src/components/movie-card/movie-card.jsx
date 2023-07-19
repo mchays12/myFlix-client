@@ -7,7 +7,7 @@ import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootst
 export const MovieCard = ({ movie }) => {
 
   return (
-    <Col className='mb-3' key={movie.id} md={3}>
+    <Col className='mb-6' key={movie.id} md={12}>
       <Card className='h-100'>
         <Card.Img variant="top" src={movie.image} />
         <Card.Body>

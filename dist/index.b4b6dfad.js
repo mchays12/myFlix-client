@@ -27456,7 +27456,7 @@ const MovieView = ({ movies , user , setUser , token  })=>{
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                                 children: [
                                                     " ",
-                                                    movie.Director,
+                                                    movie.Director.Name,
                                                     " "
                                                 ]
                                             }, void 0, true, {
@@ -27482,7 +27482,7 @@ const MovieView = ({ movies , user , setUser , token  })=>{
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                                 children: [
                                                     " ",
-                                                    movie.Genre,
+                                                    movie.Genre.Name,
                                                     " "
                                                 ]
                                             }, void 0, true, {
@@ -27508,7 +27508,7 @@ const MovieView = ({ movies , user , setUser , token  })=>{
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                                 children: [
                                                     " ",
-                                                    movie.Featured,
+                                                    movie.Featured.toString(),
                                                     " "
                                                 ]
                                             }, void 0, true, {

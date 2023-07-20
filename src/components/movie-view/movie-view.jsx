@@ -66,15 +66,15 @@ export const MovieView = ({ movies, user, setUser, token }) => {
                   </div>
                   <div>
                     <span> Director: </span>
-                    <span> {movie.Director} </span>
+                    <span> {movie.Director.Name} </span>
                   </div>
                   <div>
                     <span> Genre: </span>
-                    <span> {movie.Genre} </span>
+                    <span> {movie.Genre.Name} </span>
                   </div>
                   <div>
                     <span> Featured: </span>
-                    <span> {movie.Featured} </span>
+                    <span> {movie.Featured.toString()} </span>
                   </div>
                   {isFavorite ? (
                     <Button onClick={removeFavorite}> Remove from Favorites </Button>

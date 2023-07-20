@@ -8,9 +8,9 @@ import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootst
 
 export const MovieView = ({ movies, user, setUser, token }) => {
   const { movieId } = useParams();
-  //const [isFavorite, setIsFavorite] = useState(false);
-
-  /*useEffect(() => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const movie = movies.find((m) => m.id === movieId);
+  useEffect(() => {
     const isFavorited = user.FavoriteMovies.includes(movieId)
     setIsFavorite(isFavorited)
   }, []);
@@ -47,10 +47,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
       setIsFavorite(true);
       localStorage.setItem("user", JSON.stringify(data));
     })
-  };*/
-
-  const movie = movies.find((m) => m.id === movieId);
-
+  };
 
   return (
     <Container fluid>
@@ -60,9 +57,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
             <Card>
               <Card.Body>
                 <div>
-                  <div>
-                    <img className="w-100 h-100" src={movie.image} />
-                  </div>
+
                   <div>
                     <span> Title: </span>
                     <span> {movie.Title} </span>

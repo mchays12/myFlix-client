@@ -57,7 +57,9 @@ export const MovieView = ({ movies, user, setUser, token }) => {
             <Card>
               <Card.Body>
                 <div>
-
+                  <div>
+                    <img className="w-100 h-100" src={movie.ImagePath} />
+                  </div>
                   <div>
                     <span> Title: </span>
                     <span> {movie.Title} </span>

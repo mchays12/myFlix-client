@@ -16,6 +16,11 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
 
+  const onLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+  }
 
   useEffect(() => {
     if (!token) {
@@ -97,7 +102,13 @@ export const MainView = () => {
                   <Col> The list is empty </Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView
+                      style={{ border: "1px solid green" }}
+                      movies={movies}
+                      user={user}
+                      setUser={setUser}
+                      token={token}
+                    />
                   </Col>
                 )}
               </>
@@ -114,7 +125,7 @@ export const MainView = () => {
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
+                      <Col className="mb-5" key={movie.id} md={3}>
                         <MovieCard movie={movie} />
                       </Col>
                     ))}
@@ -125,8 +136,21 @@ export const MainView = () => {
           />
 
         </Routes>
+
+        {user && (
+          <Col md={1}>
+            <Button
+              variant="secondary"
+              onClick={onLogout}
+            >
+              Logout
+            </Button>
+
+          </Col>
+        )}
       </Row>
     </BrowserRouter>
+
   )
 }
 

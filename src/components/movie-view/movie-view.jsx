@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootst
 export const MovieView = ({ movies, user, setUser, token }) => {
   const { movieId } = useParams();
   const [isFavorite, setIsFavorite] = useState(false);
-  const movie = movies.find((m) => m.id === movieId);
+
   useEffect(() => {
     const isFavorited = user.FavoriteMovies.includes(movieId)
     setIsFavorite(isFavorited)
@@ -49,54 +49,44 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     })
   };
 
+  const movie = movies.find((m) => m.id === movieId);
+
   return (
-    <Container fluid>
-      <Row>
-        <Col className='mb-3' key={movie.id} md={3} >
-          <CardGroup>
-            <Card>
-              <Card.Body>
-                <div>
-                  <div>
-                    <img className="w-100 h-100" src={movie.ImagePath} />
-                  </div>
-                  <div>
-                    <span> Title: </span>
-                    <span> {movie.Title} </span>
-                  </div>
-                  <div>
-                    <span> Director: </span>
-                    <span> {movie.Director.Name} </span>
-                  </div>
-                  <div>
-                    <span> Genre: </span>
-                    <span> {movie.Genre.Name} </span>
-                  </div>
-                  <div>
-                    <span> Featured: </span>
-                    <span> {movie.Featured.toString()} </span>
-                  </div>
-                  {isFavorite ? (
-                    <Button onClick={removeFavorite}> Remove from Favorites </Button>
-                  ) : (
-                    <Button onClick={addToFavorite}> Add to Favorites </Button>
-                  )}
 
-                  <Link to={`/`}>
-                    <button
-                      classname="back-button"
-                    >
-                      Back
-                    </button>
-                  </Link>
-                </div>
+    <div>
+      <div>
+        <img className="w-100 h-100" src={movie.ImagePath} />
+      </div>
+      <div>
+        <span> Title: </span>
+        <span> {movie.Title} </span>
+      </div>
+      <div>
+        <span> Director: </span>
+        <span> {movie.Director.Name} </span>
+      </div>
+      <div>
+        <span> Genre: </span>
+        <span> {movie.Genre.Name} </span>
+      </div>
+      <div>
+        <span> Featured: </span>
+        <span> {movie.Featured.toString()} </span>
+      </div>
+      {isFavorite ? (
+        <Button onClick={removeFavorite}> Remove from Favorites </Button>
+      ) : (
+        <Button onClick={addToFavorite}> Add to Favorites </Button>
+      )}
 
-              </Card.Body>
-            </Card>
-          </CardGroup>
-        </Col>
-      </Row>
-    </Container>
+      <Link to={`/`}>
+        <button
+          classname="back-button"
+        >
+          Back
+        </button>
+      </Link>
+    </div>
   );
 };
 
@@ -110,6 +100,6 @@ MovieView.propTypes = {
     Genre: PropTypes.shape({
       Name: PropTypes.string.isRequired
     })
-  }).isRequired,
-  onMovieClick: PropTypes.func.isRequired
+  }).isRequired
+
 };

@@ -10,6 +10,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
   const { movieId } = useParams();
   const [isFavorite, setIsFavorite] = useState(false);
 
+
   useEffect(() => {
     const isFavorited = user.FavoriteMovies.includes(movieId)
     setIsFavorite(isFavorited)
@@ -29,6 +30,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     }).then((data) => {
       setIsFavorite(false);
       localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
     })
   };
 
@@ -46,10 +48,14 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     }).then((data) => {
       setIsFavorite(true);
       localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
     })
   };
 
-  const movie = movies.find((m) => m.id === movieId);
+  const movie = movies.find((m) => m._id === movieId);
+
+
+
 
   return (
 
@@ -81,7 +87,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
 
       <Link to={`/`}>
         <button
-          classname="back-button"
+          className="back-button"
         >
           Back
         </button>
@@ -90,7 +96,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
   );
 };
 
-MovieView.propTypes = {
+/*MovieView.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,
@@ -102,4 +108,4 @@ MovieView.propTypes = {
     })
   }).isRequired
 
-};
+};*/

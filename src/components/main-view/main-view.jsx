@@ -10,17 +10,21 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
 
+
+
+
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [movies, setMovies] = useState([]);
 
   const onLogout = () => {
     setUser(null);
     setToken(null);
     localStorage.clear();
   }
+
 
   useEffect(() => {
     if (!token) {
@@ -34,8 +38,9 @@ export const MainView = () => {
       .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.map((movie) => {
+
           return {
-            _id: movie.id,
+            _id: movie._id,
             Title: movie.Title,
             Description: movie.Description,
             Genre: movie.Genre.Name,
@@ -86,12 +91,36 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                    <LoginView onLoggedIn={(user, token) => {
+                      setUser(user);
+                      setToken(token);
+                    }} />
                   </Col>
                 )}
               </>
             }
           />
+
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col>
+                    <ProfileView
+                      user={user}
+                      token={token}
+                      setUser={setUser}
+                      movies={movies}
+                      onLogout={onLogout}
+                    />
+                  </Col>
+                )}</>
+            }
+          />
+
           <Route
             path="/movies/:movieId"
             element={
@@ -125,7 +154,7 @@ export const MainView = () => {
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col className="mb-5" key={movie.id} md={3}>
+                      <Col className="mb-5" key={movie._id} md={3}>
                         <MovieCard movie={movie} />
                       </Col>
                     ))}

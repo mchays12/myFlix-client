@@ -14,28 +14,33 @@ export const LoginView = ({ onLoggedIn }) => {
       Password: password
     };
 
-    fetch("https://myflixappmatthew.herokuapp.com/login?" + new URLSearchParams(data), {
+    fetch("https://myflixappmatthew.herokuapp.com/login?", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      // body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      //return header with JWT
+      .then((response) => {
+        return response.json();
+      })
+      //pass user and token to MainView
       .then((data) => {
-        console.log("Login response: ", data);
+        console.log("Login response: " + data);
         if (data.user) {
+          //store user info so user won't have to re-auth on r
           localStorage.setItem("user", JSON.stringify(data.user));
-          localStorage.setItem("token", data.token);
+          localStorage.setItem("token", JSON.stringify(data.token));
           onLoggedIn(data.user, data.token);
         } else {
-          alert("no such user");
+          alert("User does not exist");
         }
       })
       .catch((e) => {
-        alert("something went wrong");
+        alert("Something went wrong");
       });
-  };
+  }
 
   return (
     <Container>
@@ -46,7 +51,7 @@ export const LoginView = ({ onLoggedIn }) => {
               <Card.Body>
                 <Card.Title>Please Log in</Card.Title>
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlID="formUsername">
+                  <Form.Group className="mb-3" controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
                       type="text"
@@ -58,7 +63,7 @@ export const LoginView = ({ onLoggedIn }) => {
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlID="formPassword">
+                  <Form.Group className="mb-3" controlId="formPassword">
                     <Form.Label>Password:</Form.Label>
                     <Form.Control
                       type="text"

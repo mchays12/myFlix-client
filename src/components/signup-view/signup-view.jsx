@@ -53,7 +53,7 @@ export const SignupView = () => {
                     />
                   </Form.Group>
 
-                  <Form.Group controlID="formPassword">
+                  <Form.Group controlId="formPassword">
                     <Form.Label>Password:</Form.Label>
                     <Form.Control
                       type="password"
@@ -79,7 +79,7 @@ export const SignupView = () => {
                     <Form.Label>Birthday:</Form.Label>
                     <Form.Control
                       type="date"
-                      value={email}
+                      value={birthday}
                       onChange={(e) => setBirthday(e.target.value)}
                       required
                       minLength="3"

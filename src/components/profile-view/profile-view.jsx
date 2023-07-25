@@ -7,14 +7,14 @@ import { Form, Button, Col, Container, Card, CardGroup, Row, Modal } from "react
 import { MovieCard } from "../movie-card/movie-card";
 import { ModalHeader } from "react-bootstrap";
 
-export function ProfileView({ movies, onUpdatesUserInfo, user, token, setUser, onLogout }) {
+export function ProfileView({ movies, user, token, setUser, onLogout }) {
   const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState(user.Password);
   const [email, setEmail] = useState(user.Email);
   const [birthday, setBirthday] = useState(user.BirthDate);
   const [showModal, setShowModal] = useState(false);
   const FavoriteMovies = movies.filter((movie) => {
-    return user.FavoriteMovies.includes(movie.id);
+    return user.FavoriteMovies.includes(movie._id);
   });
 
   const handleShowModal = () => setShowModal(true);
@@ -22,17 +22,17 @@ export function ProfileView({ movies, onUpdatesUserInfo, user, token, setUser, o
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  }
-
-  const data = {
-    Username: username,
-    Password: password,
-    Email: email,
-    Birthday: birthday
-  }
 
 
-  const UpdateUser = () => {
+    const data = {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    }
+
+
+
     fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}`, {
       method: 'PUT',
       body: JSON.stringify(data),
@@ -47,8 +47,8 @@ export function ProfileView({ movies, onUpdatesUserInfo, user, token, setUser, o
         alert("update failed.")
       }
     }).then((data) => {
-      setIsFavorite(false);
       localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
     })
   };
 
@@ -91,7 +91,7 @@ export function ProfileView({ movies, onUpdatesUserInfo, user, token, setUser, o
             />
           </Form.Group>
           <Form.Group controlId="formPassword">
-            <Form.Label> Username:</Form.Label>
+            <Form.Label> Password:</Form.Label>
             <Form.Control
               type="password"
               value={password}
@@ -109,7 +109,7 @@ export function ProfileView({ movies, onUpdatesUserInfo, user, token, setUser, o
             />
           </Form.Group>
           <Form.Group controlId="formBirthday">
-            <Form.Label> Email: </Form.Label>
+            <Form.Label> Birthday: </Form.Label>
             <Form.Control
               type="date"
               value={birthday}
@@ -123,8 +123,8 @@ export function ProfileView({ movies, onUpdatesUserInfo, user, token, setUser, o
       </Row>
       <Row>
         <h3> Favorite movies: </h3>
-        {FavoriteMovies.map((movies) => (
-          <Col className="mb-5" key={movie.id} md={4}>
+        {FavoriteMovies.map((movie) => (
+          <Col className="mb-5" key={movie._id} md={4}>
           </Col>
         ))}
       </Row>

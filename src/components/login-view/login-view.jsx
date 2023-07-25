@@ -14,7 +14,7 @@ export const LoginView = ({ onLoggedIn }) => {
       Password: password
     };
 
-    fetch("https://myflixappmatthew.herokuapp.com/login?", {
+    fetch("https://myflixappmatthew.herokuapp.com/login?" + new URLSearchParams(data), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,6 +30,7 @@ export const LoginView = ({ onLoggedIn }) => {
         console.log("Login response: " + data);
         if (data.user) {
           //store user info so user won't have to re-auth on r
+
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", JSON.stringify(data.token));
           onLoggedIn(data.user, data.token);

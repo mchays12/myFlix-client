@@ -37,7 +37,6 @@ export const MovieView = ({ movies, user, setUser, token }) => {
   };
 
   const addToFavorite = () => {
-    console.log(movieId);
     fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
       method: 'PUT',
       headers: {

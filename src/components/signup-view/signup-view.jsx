@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootstrap";
 
+
 export const SignupView = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

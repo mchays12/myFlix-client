@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link, Button } from "react-router-dom";
 
-function FavoriteMovies({ favoriteMoviesList }) {
+function FavoriteMovies({ FavoriteMoviesList }) {
   return (
     <div>
       <h2> Favorite Movies </h2>
-      {favoriteMoviesList.map((movies) => {
+      {FavoriteMoviesList.map((movies) => {
         return (
-          <div key={movies.id}>
+          <div key={movies._id}>
             <img src={movies.ImagePath} />
-            <Link to={`/movies/${movies.id}`}>
+            <Link to={`/movies/${movies._id}`}>
               <h4>{movies.Title}</h4>
             </Link>
-            <button variant="secondary" onClick={() => removeFav(movies.id)}> Remove from list </button>
+            <button variant="secondary" onClick={() => removeFav(movies._id)}> Remove from list </button>
           </div>
         )
       })}

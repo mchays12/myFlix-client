@@ -7,13 +7,13 @@ import { Form, Button, Col, Container, Card, CardGroup, Row, Modal } from "react
 import { MovieCard } from "../movie-card/movie-card";
 import { ModalHeader } from "react-bootstrap";
 
-export function ProfileView({ movies, user, token, setUser, onLogout }) {
+export const ProfileView = ({ movies, user, token, setUser, onLogout }) => {
   const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState(user.Password);
   const [email, setEmail] = useState(user.Email);
   const [birthday, setBirthday] = useState(user.BirthDate);
   const [showModal, setShowModal] = useState(false);
-  const FavoriteMovies = movies.filter((movie) => {
+  const favoriteMovies = movies.filter((movie) => {
     return user.FavoriteMovies.includes(movie._id);
   });
 
@@ -34,7 +34,7 @@ export function ProfileView({ movies, user, token, setUser, onLogout }) {
 
 
     fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export function ProfileView({ movies, user, token, setUser, onLogout }) {
             <Form.Control
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value0)}
+              onChange={(e) => setUsername(e.target.value)}
               required
               minLength="5"
             />
@@ -95,7 +95,7 @@ export function ProfileView({ movies, user, token, setUser, onLogout }) {
             <Form.Control
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value0)}
+              onChange={(e) => setPassword(e.target.value)}
               required
               minLength="5"
             />
@@ -123,8 +123,9 @@ export function ProfileView({ movies, user, token, setUser, onLogout }) {
       </Row>
       <Row>
         <h3> Favorite movies: </h3>
-        {FavoriteMovies.map((movie) => (
+        {favoriteMovies.map((movie) => (
           <Col className="mb-5" key={movie._id} md={4}>
+            <MovieCard movie={movie}></MovieCard>
           </Col>
         ))}
       </Row>

@@ -7,19 +7,19 @@ import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootst
 
 
 export const MovieView = ({ movies, user, setUser, token }) => {
-  const { movieId } = useParams();
+  const { movieID } = useParams();
   const [isFavorite, setIsFavorite] = useState(false);
 
 
   useEffect(() => {
-    const isFavorited = user.FavoriteMovies.includes(movieId)
+    const isFavorited = user.FavoriteMovies.includes(movieID)
     setIsFavorite(isFavorited)
   }, []);
 
 
 
   const removeFavorite = () => {
-    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/${movieId}`, {
+    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
       method: 'DELETE',
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
   };
 
   const addToFavorite = () => {
-    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}${movieId}`, {
+    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     })
   };
 
-  const movie = movies.find((m) => m._id === movieId);
+  const movie = movies.find((m) => m._id === movieID);
 
 
 

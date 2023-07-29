@@ -27297,7 +27297,7 @@ const MainView = ()=>{
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/movies/:movieId",
+                                path: "/movies/:movieID",
                                 element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
                                         to: "/login",
@@ -46917,14 +46917,14 @@ var _reactBootstrap = require("react-bootstrap");
 var _s = $RefreshSig$();
 const MovieView = ({ movies , user , setUser , token  })=>{
     _s();
-    const { movieId  } = (0, _reactRouter.useParams)();
+    const { movieID  } = (0, _reactRouter.useParams)();
     const [isFavorite, setIsFavorite] = (0, _react.useState)(false);
     (0, _react.useEffect)(()=>{
-        const isFavorited = user.FavoriteMovies.includes(movieId);
+        const isFavorited = user.FavoriteMovies.includes(movieID);
         setIsFavorite(isFavorited);
     }, []);
     const removeFavorite = ()=>{
-        fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/${movieId}`, {
+        fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -46939,7 +46939,7 @@ const MovieView = ({ movies , user , setUser , token  })=>{
         });
     };
     const addToFavorite = ()=>{
-        fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}${movieId}`, {
+        fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -46953,7 +46953,7 @@ const MovieView = ({ movies , user , setUser , token  })=>{
             setUser(data);
         });
     };
-    const movie = movies.find((m)=>m._id === movieId);
+    const movie = movies.find((m)=>m._id === movieID);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -47123,7 +47123,7 @@ const MovieView = ({ movies , user , setUser , token  })=>{
   }).isRequired
 
 };*/ 
-_s(MovieView, "Eu5S1baMK/gY/xYLj5Nss4rVVBI=", false, function() {
+_s(MovieView, "7aKzJzkNXLqb5scv+ruJFI//GtQ=", false, function() {
     return [
         (0, _reactRouter.useParams)
     ];

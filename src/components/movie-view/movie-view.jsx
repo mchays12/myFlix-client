@@ -16,34 +16,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     setIsFavorite(isFavorited)
   }, []);
 
-  const addToFavorite = (addToFavorite) => {
-    fetch(
-      `https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`,
-      {
-        metho: addToFavorite ? "POST" : "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          alert("Something went wrong");
-          throw new Error("Something went wrong");
-        }
-      })
-      .then((data) => {
-        setIsFavorite(addToFavorite);
-        localStorage.setItem("user", JSON.stringify(data));
-        setUser(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+
 
   const removeFavorite = () => {
     fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
@@ -63,9 +36,23 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     })
   };
 
-
-
-
+  const addToFavorite = () => {
+    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+    }).then((data) => {
+      setIsFavorite(true);
+      localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
+    })
+  };
 
   const movie = movies.find((m) => m._id === movieID);
 

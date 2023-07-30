@@ -23,7 +23,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
       method: 'DELETE',
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       }
     }).then((response) => {
       if (response.ok) {

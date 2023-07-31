@@ -166,17 +166,7 @@ export const MainView = () => {
 
         </Routes>
 
-        {user && (
-          <Col md={1}>
-            <Button
-              variant="secondary"
-              onClick={onLogout}
-            >
-              Logout
-            </Button>
 
-          </Col>
-        )}
       </Row>
     </BrowserRouter>
 

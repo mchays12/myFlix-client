@@ -22,7 +22,6 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
       method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
 
       }
@@ -41,7 +40,6 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       }
     }).then((response) => {

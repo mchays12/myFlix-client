@@ -15,7 +15,7 @@ export const MovieCard = ({ movie }) => {
 
 
   return (
-    <Col className='mb-6' key={movie._id} md={12}>
+    <Col>
       <Card className='h-100'>
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>

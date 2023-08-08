@@ -8,12 +8,12 @@ import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootst
 
 export const MovieView = ({ movies, user, setUser, token }) => {
   const { movieID } = useParams();
+  const movie = movies.find((movie) => movie._id === movieID);
   const [isFavorite, setIsFavorite] = useState(false);
 
 
   useEffect(() => {
-    const isFavorited = user.FavoriteMovies.includes(movieID)
-    setIsFavorite(isFavorited)
+    setIsFavorite(user?.FavoriteMovies?.includes(movieID));
   }, []);
 
 
@@ -40,6 +40,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
       method: 'POST',
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       }
     }).then((response) => {
@@ -53,7 +54,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
     })
   };
 
-  const movie = movies.find((m) => m._id === movieID);
+
 
 
 

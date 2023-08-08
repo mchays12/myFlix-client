@@ -14,28 +14,24 @@ export const LoginView = ({ onLoggedIn }) => {
       Password: password
     };
 
-    fetch("https://myflixappmatthew.herokuapp.com/login?" + new URLSearchParams(data), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      //return header with JWT
-      .then((response) => {
-        return response.json();
-      })
-      //pass user and token to MainView
+    fetch(
+      "https://myflixappmatthew.herokuapp.com/login?" +
+      new URLSearchParams(data),
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((response) => response.json())
       .then((data) => {
-        console.log("Login response: " + data);
+        console.log("Login response: ", data);
         if (data.user) {
-          //store user info so user won't have to re-auth on r
-
           localStorage.setItem("user", JSON.stringify(data.user));
-          localStorage.setItem("token", JSON.stringify(data.token));
+          localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
         } else {
-          alert("User does not exist");
+          alert("Username or Password incorrect.");
         }
       })
       .catch((e) => {

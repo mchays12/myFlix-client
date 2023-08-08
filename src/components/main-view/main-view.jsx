@@ -1,17 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, } from "react";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { MovieView } from "../movie-view/movie-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
+import { MovieList } from "../movie-list/movie-list";
 import { Row, Col, Button, Container, Card, CardGroup } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
-
-
-
 
   const storedUser = localStorage.getItem("user");
   const storedToken = localStorage.getItem("token");
@@ -19,17 +17,14 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
 
-  const onLogout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.clear();
-  }
+
 
 
   useEffect(() => {
     if (!token) {
       return;
     }
+
 
     fetch("https://myflixappmatthew.herokuapp.com/movies",
       {
@@ -57,6 +52,12 @@ export const MainView = () => {
         console.log(error)
       })
   }, [token]);
+
+  const onLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+  }
 
   return (
     <BrowserRouter>
@@ -130,7 +131,7 @@ export const MainView = () => {
                 ) : movies.length === 0 ? (
                   <Col> The list is empty </Col>
                 ) : (
-                  <Col md={8}>
+                  <Col >
                     <MovieView
                       style={{ border: "1px solid green" }}
                       movies={movies}
@@ -154,8 +155,8 @@ export const MainView = () => {
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col className="mb-5" key={movie._id} md={3}>
-                        <MovieCard movie={movie} />
+                      <Col >
+                        <MovieList movies={movies} user={user} />
                       </Col>
                     ))}
                   </>

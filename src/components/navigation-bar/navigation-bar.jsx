@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function NavigationBar({ user, onLoggedOut }) {
   return (
-    <Navbar bg="light" data-bs-theme="dark">
+    <Navbar bg="dark" data-bs-theme="dark">
       <Container>
         <Navbar.Brand as={Link} to="/">
           MyFlix

@@ -61,77 +61,79 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-      <NavigationBar
-        user={user}
-        onLoggedOut={() => {
-          setUser(null);
-          setToken(null)
-        }}
-      />
-      <Row>
-        <Routes>
-          <Route
-            path="/signup"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={5}>
-                    <SignupView />
-                  </Col>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={5}>
-                    <LoginView onLoggedIn={(user, token) => {
-                      setUser(user);
-                      setToken(token);
-                    }} />
-                  </Col>
-                )}
-              </>
-            }
-          />
+      <Container>
+        <NavigationBar
+          user={user}
+          onLoggedOut={() => {
+            setUser(null);
+            setToken(null)
+          }}
+        />
+        <Row>
+          <Routes>
+            <Route
+              path="/signup"
+              element={
+                <Fragment>
+                  {user ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <Col md={5}>
+                      <SignupView />
+                    </Col>
+                  )}
+                </Fragment>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <Fragment>
+                  {user ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <Col md={5}>
+                      <LoginView onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }} />
+                    </Col>
+                  )}
+                </Fragment>
+              }
+            />
 
-          <Route
-            path="/profile"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : (
-                  <Col>
-                    <ProfileView
-                      user={user}
-                      token={token}
-                      setUser={setUser}
-                      movies={movies}
-                      onLogout={onLogout}
-                    />
-                  </Col>
-                )}</>
-            }
-          />
+            <Route
+              path="/profile"
+              element={
+                <Fragment>
+                  {!user ? (
+                    <Navigate to="/login" replace />
+                  ) : (
+                    <Col>
+                      <ProfileView
+                        user={user}
+                        token={token}
+                        setUser={setUser}
+                        movies={movies}
+                        onLogout={onLogout}
+                      />
+                    </Col>
+                  )}
+                </Fragment>
+              }
+            />
 
-          <Route
-            path="/movies/:movieID"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col> The list is empty </Col>
-                ) : (
-                  <Fragment >
+            <Route
+              path="/movies/:movieID"
+              element={
+                <Fragment >
+                  {!user ? (
+                    <Navigate to="/login" replace />
+                  ) : movies.length === 0 ? (
+                    <Col> The list is empty </Col>
+                  ) : (
+
                     <MovieView
                       style={{ border: "1px solid green" }}
                       movies={movies}
@@ -139,35 +141,33 @@ export const MainView = () => {
                       setUser={setUser}
                       token={token}
                     />
-                  </Fragment>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col> The list is empty </Col>
-                ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col >
-                        <MovieList movies={movies} user={user} />
-                      </Col>
-                    ))}
-                  </>
-                )}
-              </>
-            }
-          />
-        </Routes>
-
-
-      </Row>
+                  )}
+                </Fragment>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <Fragment>
+                  {!user ? (
+                    <Navigate to="/login" replace />
+                  ) : movies.length === 0 ? (
+                    <Col> The list is empty </Col>
+                  ) : (
+                    <>
+                      {movies.map((movie) => (
+                        <Col >
+                          <MovieList movies={movies} user={user} />
+                        </Col>
+                      ))}
+                    </>
+                  )}
+                </Fragment>
+              }
+            />
+          </Routes>
+        </Row>
+      </Container>
     </BrowserRouter>
 
   )

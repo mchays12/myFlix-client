@@ -12,13 +12,13 @@ export const ProfileView = ({ movies, user, token, setUser, onLogout }) => {
   const [password, setPassword] = useState(user.Password);
   const [email, setEmail] = useState(user.Email);
   const [birthday, setBirthday] = useState(user.BirthDate);
-  const [showModal, setShowModal] = useState(false);
+
+
   const favoriteMovies = movies.filter((movie) => {
     return user.FavoriteMovies.includes(movie._id);
   });
 
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -69,7 +69,7 @@ export const ProfileView = ({ movies, user, token, setUser, onLogout }) => {
   };
 
   return (
-    <>
+    <Fragment>
       <h1> Profile </h1>
       <Row>
         <Col>
@@ -142,7 +142,7 @@ export const ProfileView = ({ movies, user, token, setUser, onLogout }) => {
           <Button variant="primary" onClick={handleCloseModal}>No</Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </Fragment>
   )
 
 }

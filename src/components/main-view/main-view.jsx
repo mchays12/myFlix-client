@@ -6,7 +6,7 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
 import { MovieList } from "../movie-list/movie-list";
-import { Fragment, Row, Col, Button, Container, Card, CardGroup } from "react-bootstrap";
+import { Row, Col, Button, Container, Card, CardGroup } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -134,6 +134,19 @@ export const MainView = () => {
                     <Col> The list is empty </Col>
                   ) : (
 
+<<<<<<< HEAD
+=======
+          <Route
+            path="/movies/:movieID"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col> The list is empty </Col>
+                ) : (
+                  <Col >
+>>>>>>> parent of bc7766f (Update Mainview)
                     <MovieView
                       style={{ border: "1px solid green" }}
                       movies={movies}
@@ -141,6 +154,7 @@ export const MainView = () => {
                       setUser={setUser}
                       token={token}
                     />
+<<<<<<< HEAD
                   )}
                 </Fragment>
               }
@@ -168,6 +182,38 @@ export const MainView = () => {
           </Routes>
         </Row>
       </Container>
+=======
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col> The list is empty </Col>
+                ) : (
+                  <>
+                    {movies.map((movie) => (
+                      <Col >
+                        <MovieList movies={movies} user={user} />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+
+        </Routes>
+
+
+      </Row>
+>>>>>>> parent of bc7766f (Update Mainview)
     </BrowserRouter>
 
   )

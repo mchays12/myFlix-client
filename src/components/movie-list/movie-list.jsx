@@ -26,7 +26,7 @@ export const MovieList = ({ movies, user }) => {
         ) : (
           <Fragment>
             {filteredMovies.map((movie) => (
-              <Col key={movie.Id} md={3} className="mb-5">
+              <Col key={movie._id} md={3} className="mb-5">
                 <MovieCard movie={movie} user={user} />
               </Col>
             ))}

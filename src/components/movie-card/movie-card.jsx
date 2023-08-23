@@ -8,14 +8,8 @@ import { useEffect, useState } from 'react';
 export const MovieCard = ({ movie, user }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
-    setIsFavorite(user.FavoriteMovies.includes(movie.Id));
+    setIsFavorite(user.FavoriteMovies.includes(movie._id));
   }, []);
-
-
-
-
-
-
 
 
   return (

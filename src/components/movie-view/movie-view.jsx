@@ -11,13 +11,13 @@ export const MovieView = ({ movies, user, setUser, token }) => {
   const movie = movies.find((movie) => movie._id === movieId);
   const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
-    setIsFavorite(user.FavoriteMovies.includes(movieId));
+    setIsFavorite(user.FavoriteMovies.includes(movie._id));
   }, []);
 
 
 
   const removeFavorite = () => {
-    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
+    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ export const MovieView = ({ movies, user, setUser, token }) => {
   };
 
   const addToFavorite = () => {
-    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
+    fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

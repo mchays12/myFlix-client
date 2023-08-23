@@ -2950,7 +2950,11 @@ var _reactBootstrap = require("react-bootstrap");
 var _indexScss = require("./index.scss");
 //Main component (will eventually use all the other)
 const MyFlixApplication = ()=>{
-    return;
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
+        fileName: "src/index.jsx",
+        lineNumber: 14,
+        columnNumber: 5
+    }, undefined);
 };
 _c = MyFlixApplication;
 //Find the root of your app
@@ -46651,10 +46655,10 @@ const MovieView = ({ movies, user, setUser, token })=>{
     const movie = movies.find((movie)=>movie._id === movieId);
     const [isFavorite, setIsFavorite] = (0, _react.useState)(false);
     (0, _react.useEffect)(()=>{
-        setIsFavorite(user.FavoriteMovies.includes(movieId));
+        setIsFavorite(user.FavoriteMovies.includes(movie._id));
     }, []);
     const removeFavorite = ()=>{
-        fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
+        fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -46668,7 +46672,7 @@ const MovieView = ({ movies, user, setUser, token })=>{
         });
     };
     const addToFavorite = ()=>{
-        fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieID}`, {
+        fetch(`https://myflixappmatthew.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -47820,7 +47824,7 @@ const MovieCard = ({ movie, user })=>{
     _s();
     const [isFavorite, setIsFavorite] = (0, _react.useState)(false);
     (0, _react.useEffect)(()=>{
-        setIsFavorite(user.FavoriteMovies.includes(movie.Id));
+        setIsFavorite(user.FavoriteMovies.includes(movie._id));
     }, []);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default), {
         className: "h-100",
@@ -47832,12 +47836,12 @@ const MovieCard = ({ movie, user })=>{
                     src: movie.ImagePath
                 }, void 0, false, {
                     fileName: "src/components/movie-card/movie-card.jsx",
-                    lineNumber: 24,
+                    lineNumber: 18,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 23,
+                lineNumber: 17,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Body, {
@@ -47852,37 +47856,37 @@ const MovieCard = ({ movie, user })=>{
                                     children: "Favorite"
                                 }, void 0, false, {
                                     fileName: "src/components/movie-card/movie-card.jsx",
-                                    lineNumber: 31,
+                                    lineNumber: 25,
                                     columnNumber: 15
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 30,
+                                lineNumber: 24,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 27,
+                        lineNumber: 21,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Text, {
                         children: movie.Description
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 35,
+                        lineNumber: 29,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 26,
+                lineNumber: 20,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 22,
+        lineNumber: 16,
         columnNumber: 5
     }, undefined);
 };
@@ -47964,7 +47968,7 @@ const MovieList = ({ movies, user })=>{
                                 lineNumber: 30,
                                 columnNumber: 17
                             }, undefined)
-                        }, movie.Id, false, {
+                        }, movie._id, false, {
                             fileName: "src/components/movie-list/movie-list.jsx",
                             lineNumber: 29,
                             columnNumber: 15

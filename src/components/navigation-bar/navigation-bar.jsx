@@ -1,44 +1,48 @@
-import { Button, Container, Nav, Navbar, } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-export function NavigationBar({ user, onLoggedOut }) {
+
+export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar bg="light" data-bs-theme="dark">
+    <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          MyFlix
+          Movies App
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {!user && (
-              <>
-                <Nav.Link as={Link} to={"/login"}>
+              <Fragment>
+                <Nav.Link as={Link} to="/login">
                   Login
                 </Nav.Link>
-                <Nav.Link as={Link} to={"/signup"}>
+                <Nav.Link as={Link} to="/signup">
                   Signup
                 </Nav.Link>
-              </>
+              </Fragment>
             )}
-
             {user && (
-              <>
-                <Nav.Link as={Link} to={"/"}>
+              <Fragment>
+                <Nav.Link as={Link} to="/">
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to={"profile"}>
-                  My Profile
+                <Nav.Link as={Link} to="/profile">
+                  Profile
                 </Nav.Link>
-                <Nav.Link onClick={onLoggedOut}>
-                  Logout
-                </Nav.Link>
-              </>
+                <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
+              </Fragment>
             )}
-
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
-}
+  );
+};
+
+NavigationBar.propTypes = {
+  user: PropTypes.object,
+  onLoggedOut: PropTypes.func.isRequired,
+};

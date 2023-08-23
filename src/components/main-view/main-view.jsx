@@ -1,30 +1,26 @@
-import { useState, useEffect, } from "react";
-import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { MovieView } from "../movie-view/movie-view";
-import { MovieCard } from "../movie-card/movie-card";
-import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view/signup-view";
-import { ProfileView } from "../profile-view/profile-view";
-import { MovieList } from "../movie-list/movie-list";
-import { Fragment, Row, Col, Button, Container, Card, CardGroup } from "react-bootstrap";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Fragment, useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Row, Col, Container } from 'react-bootstrap';
+import { MovieView } from '../movie-view/movie-view';
+import { LoginView } from '../login-view/login-view';
+import { SignupView } from '../signup-view/signup-view';
+import { NavigationBar } from '../navigation-bar/navigation-bar';
+import { ProfileView } from '../profile-view/profile-view';
+import { MovieList } from '../movie-list/movie-list';
+
+
+
 
 export const MainView = () => {
-
-  const storedUser = localStorage.getItem("user");
-  const storedToken = localStorage.getItem("token");
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const storedToken = localStorage.getItem('token');
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-
-
-
-
   useEffect(() => {
     if (!token) {
       return;
     }
-
 
     fetch("https://myflixappmatthew.herokuapp.com/movies",
       {
@@ -61,15 +57,9 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
+      <NavigationBar user={user} onLoggedOut={onLogout} />
       <Container>
-        <NavigationBar
-          user={user}
-          onLoggedOut={() => {
-            setUser(null);
-            setToken(null)
-          }}
-        />
-        <Row>
+        <Row className="justify-content-md-center">
           <Routes>
             <Route
               path="/signup"
@@ -93,16 +83,38 @@ export const MainView = () => {
                     <Navigate to="/" />
                   ) : (
                     <Col md={5}>
-                      <LoginView onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }} />
+                      <LoginView
+                        onLoggedIn={(user, token) => {
+                          setUser(user);
+                          setToken(token);
+                        }}
+                      />
                     </Col>
                   )}
                 </Fragment>
               }
             />
-
+            <Route
+              path="/movies/:movieId"
+              element={
+                <Fragment>
+                  {!user ? (
+                    <Navigate to="/login" replace />
+                  ) : movies.length === 0 ? (
+                    <div>Loading...</div>
+                  ) : (
+                    <Col md={8}>
+                      <MovieView
+                        movies={movies}
+                        user={user}
+                        setUser={setUser}
+                        token={token}
+                      />
+                    </Col>
+                  )}
+                </Fragment>
+              }
+            />
             <Route
               path="/profile"
               element={
@@ -110,36 +122,11 @@ export const MainView = () => {
                   {!user ? (
                     <Navigate to="/login" replace />
                   ) : (
-                    <Col>
-                      <ProfileView
-                        user={user}
-                        token={token}
-                        setUser={setUser}
-                        movies={movies}
-                        onLogout={onLogout}
-                      />
-                    </Col>
-                  )}
-                </Fragment>
-              }
-            />
-
-            <Route
-              path="/movies/:movieID"
-              element={
-                <Fragment >
-                  {!user ? (
-                    <Navigate to="/login" replace />
-                  ) : movies.length === 0 ? (
-                    <Col> The list is empty </Col>
-                  ) : (
-
-                    <MovieView
-                      style={{ border: "1px solid green" }}
-                      movies={movies}
+                    <ProfileView
                       user={user}
-                      setUser={setUser}
                       token={token}
+                      setUser={setUser}
+                      movies={movies}
                     />
                   )}
                 </Fragment>
@@ -151,16 +138,8 @@ export const MainView = () => {
                 <Fragment>
                   {!user ? (
                     <Navigate to="/login" replace />
-                  ) : movies.length === 0 ? (
-                    <Col> The list is empty </Col>
                   ) : (
-                    <>
-                      {movies.map((movie) => (
-                        <Col >
-                          <MovieList movies={movies} user={user} />
-                        </Col>
-                      ))}
-                    </>
+                    <MovieList movies={movies} user={user} />
                   )}
                 </Fragment>
               }
@@ -169,8 +148,9 @@ export const MainView = () => {
         </Row>
       </Container>
     </BrowserRouter>
+  );
 
-  )
+
 }
 
 

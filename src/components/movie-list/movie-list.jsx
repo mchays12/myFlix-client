@@ -17,20 +17,20 @@ export const MovieList = ({ movies, user }) => {
 
   return (
     <Fragment>
-      <Row >
+      <Row className="my-3">
         <MovieFilter filter={filter} setFilter={setFilter} />
       </Row>
       <Row>
         {filteredMovies.length === 0 ? (
           <div>The list is empty!</div>
         ) : (
-          <>
+          <Fragment>
             {filteredMovies.map((movie) => (
-              <Col key={movie.Id} >
+              <Col key={movie.Id} md={3} className="mb-5">
                 <MovieCard movie={movie} user={user} />
               </Col>
             ))}
-          </>
+          </Fragment>
         )}
       </Row>
     </Fragment>

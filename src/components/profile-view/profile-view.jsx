@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from "react";
-import './profile-view.scss';
-import FavoriteMovies from "./favorite-movies";
-import UpdateUser from "./update-user";
-import UserInfo from "./user-info";
-import { Form, Button, Col, Container, Card, CardGroup, Row, Modal } from "react-bootstrap";
-import { MovieCard } from "../movie-card/movie-card";
-import { ModalHeader } from "react-bootstrap";
+import { Fragment, useState } from 'react';
+import { Form, Button, Row, Col } from 'react-bootstrap';
+import { MovieCard } from '../movie-card/movie-card';
 
-export const ProfileView = ({ movies, user, token, setUser, onLogout }) => {
+export const ProfileView = ({ user, token, setUser, movies }) => {
   const [username, setUsername] = useState(user.Username);
-  const [password, setPassword] = useState(user.Password);
+  const [password, setPassword] = useState('');
   const [email, setEmail] = useState(user.Email);
-  const [birthday, setBirthday] = useState(user.BirthDate);
-
+  const [birthday, setBirthday] = useState(user.Birthday.split('T')[0]);
 
   const favoriteMovies = movies.filter((movie) => {
     return user.FavoriteMovies.includes(movie._id);
   });
+
 
 
 
@@ -70,80 +65,85 @@ export const ProfileView = ({ movies, user, token, setUser, onLogout }) => {
 
   return (
     <Fragment>
-      <h1> Profile </h1>
       <Row>
-        <Col>
-          <div>Username: {user.Username}</div>
-          <div>Email: {user.Email} </div>
+        <Col md={6}>
+          <h1 className="my-3">Profile</h1>
+          <div>
+            <strong className="me-3">Username:</strong>
+            {username}
+          </div>
+          <div>
+            <strong className="me-3">Email:</strong>
+            {email}
+          </div>
+
+          <Form onSubmit={handleSubmit} className="mt-4">
+            <h2>Update Your Profile Information</h2>
+            <Form.Group controlId="formUsername" className="my-3">
+              <Form.Label>Username:</Form.Label>
+              <Form.Control
+                value={username}
+                required
+                onChange={(e) => setUsername(e.target.value)}
+                minLength={5}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formPassword" className="my-3">
+              <Form.Label>Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+                minLength={5}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formEmail" className="my-3">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBirthday" className="my-3">
+              <Form.Label>Birthday:</Form.Label>
+              <Form.Control
+                type="date"
+                value={birthday}
+                required
+                onChange={(e) => setBirthday(e.target.value)}
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              Update Your Profile
+            </Button>
+            <Button variant="link" onClick={handleDeleteUser}>
+              Delete Your Profile
+            </Button>
+          </Form>
         </Col>
       </Row>
-      <Row>
-        <h3> Update your information </h3>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formUsername">
-            <Form.Label> Username:</Form.Label>
-            <Form.Control
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              minLength="5"
-            />
-          </Form.Group>
-          <Form.Group controlId="formPassword">
-            <Form.Label> Password:</Form.Label>
-            <Form.Control
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength="5"
-            />
-          </Form.Group>
-          <Form.Group controlId="formEmail">
-            <Form.Label> Email: </Form.Label>
-            <Form.Control
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="formBirthday">
-            <Form.Label> Birthday: </Form.Label>
-            <Form.Control
-              type="date"
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Save changes
-          </Button>
-        </Form>
+
+      <Row className="mt-4">
+        <h2>Your Favorite Movies</h2>
+        {favoriteMovies.length === 0 ? (
+          <Col>You have no favorite movies yet.</Col>
+        ) : (
+          favoriteMovies.map((movie) => (
+            <Col key={movie._id} md={3} className="mb-3">
+              <MovieCard movie={movie} user={user} />
+            </Col>
+          ))
+        )}
       </Row>
-      <Row>
-        <h3> Favorite movies: </h3>
-        {favoriteMovies.map((movie) => (
-          <Col className="mb-5" key={movie._id} md={4}>
-            <MovieCard movie={movie}></MovieCard>
-          </Col>
-        ))}
-      </Row>
-      <Button variant="primary" onClick={handleShowModal}>
-        Delete my account
-      </Button>
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title> Delete account </Modal.Title>
-        </Modal.Header>
-        <Modal.Body> Are you sure you want to permanantly delete your account?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleDeleteUser}>Yes</Button>
-          <Button variant="primary" onClick={handleCloseModal}>No</Button>
-        </Modal.Footer>
-      </Modal>
     </Fragment>
-  )
+  );
 
 }
 

@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button, Card } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { Form, Button, Col, Container, Card, CardGroup, Row } from "react-bootstrap";
+import Card from 'react-bootstrap/Card';
+import { Badge } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 
 //code for div that shows movie title and is clickable
-export const MovieCard = ({ movie }) => {
+export const MovieCard = ({ movie, user }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  useEffect(() => {
+    setIsFavorite(user.FavoriteMovies.includes(movie.Id));
+  }, []);
+
 
 
 
@@ -15,23 +19,22 @@ export const MovieCard = ({ movie }) => {
 
 
   return (
-    <Col>
-      <Card className='h-100'>
+    <Card className="h-100">
+      <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
         <Card.Img variant="top" src={movie.ImagePath} />
-        <Card.Body>
-          <Card.Title>{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
-          <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-            <Button variant="link">
-              Open
-            </Button>
-          </Link>
-
-        </Card.Body>
-      </Card>
-    </Col>
-
-
+      </Link>
+      <Card.Body>
+        <Card.Title>
+          {movie.Title}
+          {isFavorite && (
+            <div className="my-2">
+              <Badge bg="info">Favorite</Badge>
+            </div>
+          )}
+        </Card.Title>
+        <Card.Text>{movie.Description}</Card.Text>
+      </Card.Body>
+    </Card>
   );
 };
 
